@@ -20,8 +20,10 @@ function login() {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userEmail", email);
 
-        document.getElementById("login-container").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+
+
         errorMsg.textContent = "";  
         console.log("✅ تسجيل الدخول ناجح!");
     } else {
@@ -38,13 +40,20 @@ function logout() {
     document.getElementById("login-container").classList.remove("hidden");
 }
 
-window.onload = function() {
-    if (localStorage.getItem("isLoggedIn") === "true") {
-        document.getElementById("login-container").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
-        loadDomains();
+window.onload = function () {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (isLoggedIn === "true") {
+        console.log("✅ المستخدم مسجل دخول، عرض لوحة التحكم...");
+        document.getElementById("login-container").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    } else {
+        console.log("❌ لم يتم تسجيل الدخول، عرض نموذج تسجيل الدخول...");
+        document.getElementById("login-container").style.display = "block";
+        document.getElementById("dashboard").style.display = "none";
     }
 };
+
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "script youcan";
