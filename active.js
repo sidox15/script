@@ -3,12 +3,14 @@ const users = [
 ];
 
 function login() {
+    console.log("تم النقر على زر تسجيل الدخول"); // تتبع التنفيذ
+
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const errorMsg = document.getElementById("login-error");
 
     if (!email || !password) {
-        errorMsg.textContent = "❌ يرجى إدخال البريد الإلكتروني وكلمة المرور!";
+        errorMsg.textContent = "❌ الرجاء إدخال البريد الإلكتروني وكلمة المرور!";
         return;
     }
 
@@ -17,15 +19,17 @@ function login() {
     if (user) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userEmail", email);
-        
+
         document.getElementById("login-container").classList.add("hidden");
         document.getElementById("dashboard").classList.remove("hidden");
-        errorMsg.textContent = "";
-        loadDomains();
+        errorMsg.textContent = "";  
+        console.log("✅ تسجيل الدخول ناجح!");
     } else {
         errorMsg.textContent = "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة!";
+        console.log("❌ تسجيل الدخول فشل!");
     }
 }
+
 
 function logout() {
     localStorage.removeItem("isLoggedIn");
