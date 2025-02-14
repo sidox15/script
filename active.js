@@ -35,8 +35,8 @@ function login() {
 function logout() {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userEmail");
-    document.getElementById("dashboard").classList.add("hidden");
-    document.getElementById("login-container").classList.remove("hidden");
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("login-container").style.display = "block";
 }
 
 window.onload = function () {
