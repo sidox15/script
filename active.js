@@ -3,7 +3,7 @@ const users = [
 ];
 
 function login() {
-    console.log("تم النقر على زر تسجيل الدخول"); // تتبع التنفيذ
+    console.log("تم النقر على زر تسجيل الدخول");
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -24,14 +24,13 @@ function login() {
         document.getElementById("dashboard").style.display = "block";
 
 
-        errorMsg.textContent = "";  
+        errorMsg.textContent = "";
         console.log("✅ تسجيل الدخول ناجح!");
     } else {
         errorMsg.textContent = "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة!";
         console.log("❌ تسجيل الدخول فشل!");
     }
 }
-
 
 function logout() {
     localStorage.removeItem("isLoggedIn");
@@ -44,7 +43,7 @@ window.onload = function () {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
 
     if (isLoggedIn === "true") {
-        console.log("✅ المستخدم مسجل دخول، عرض لوحة التحكم...");
+        console.log("✅ المستخدم لا يزال مسجل دخول، عرض لوحة التحكم...");
         document.getElementById("login-container").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
     } else {
@@ -53,7 +52,6 @@ window.onload = function () {
         document.getElementById("dashboard").style.display = "none";
     }
 };
-
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "script youcan";
