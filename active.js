@@ -54,21 +54,22 @@ window.onload = function () {
 };
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
-const sheetName = "script-youcan";
+const sheetName = "script youcan";
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
 const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A:G?key=${apiKey}`;
 
-
 function loadDomains() {
+    console.log("بدء تحميل البيانات من Google Sheets...");  // رسالة تصحيح
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('حدث خطأ أثناء جلب البيانات: ' + response.statusText);
             }
+            console.log("الاستجابة من API: ", response);  // طباعة الاستجابة في الكونسول
             return response.json();
         })
         .then(data => {
-            console.log("✅ البيانات تم جلبها بنجاح:", data);  // طباعة البيانات في الكونسول
+            console.log("البيانات تم جلبها بنجاح:", data);  // طباعة البيانات المحملة
             const tableBody = document.getElementById("domains-table");
             tableBody.innerHTML = "";  // مسح البيانات القديمة
 
@@ -93,5 +94,3 @@ function loadDomains() {
             console.error("❌ حدث خطأ أثناء جلب البيانات:", error);
         });
 }
-
-
