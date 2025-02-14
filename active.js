@@ -63,11 +63,12 @@ function loadDomains() {
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error('حدث خطأ أثناء جلب البيانات');
+                throw new Error('حدث خطأ أثناء جلب البيانات: ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
+            console.log("✅ البيانات تم جلبها بنجاح:", data);  // طباعة البيانات في الكونسول
             const tableBody = document.getElementById("domains-table");
             tableBody.innerHTML = "";  // مسح البيانات القديمة
 
@@ -92,4 +93,5 @@ function loadDomains() {
             console.error("❌ حدث خطأ أثناء جلب البيانات:", error);
         });
 }
+
 
