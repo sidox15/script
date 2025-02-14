@@ -60,13 +60,21 @@ const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/v
 
 function loadDomains() {
     fetch(apiUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('حدث خطأ أثناء جلب البيانات');
+            }
+            return response.json();
+        })
         .then(data => {
             const tableBody = document.getElementById("domains-table");
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = "";  // مسح البيانات القديمة
 
             const rows = data.values;
-            if (!rows) return;
+            if (!rows || rows.length <= 1) {
+                console.log("❌ لا توجد بيانات لعرضها");
+                return;
+            }
 
             rows.slice(1).forEach(row => {
                 let newRow = document.createElement("tr");
@@ -79,5 +87,8 @@ function loadDomains() {
                 tableBody.appendChild(newRow);
             });
         })
-        .catch(error => console.error("❌ حدث خطأ أثناء جلب البيانات:", error));
+        .catch(error => {
+            console.error("❌ حدث خطأ أثناء جلب البيانات:", error);
+        });
 }
+
