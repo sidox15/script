@@ -56,7 +56,8 @@ window.onload = function () {
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "script youcan";
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/'${sheetName}'!A:G?key=${apiKey}`;
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A:G?key=${apiKey}`;
+
 
 function loadDomains() {
     fetch(apiUrl)
