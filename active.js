@@ -56,9 +56,9 @@ window.onload = function () {
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "sidox order"; // تأكد من تطابق الاسم
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A4:H?key=${apiKey}`; // تعديل الرابط ليشمل العمود H
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A7:H?key=${apiKey}`;
 
-const tableBody = document.getElementById("domains-table");
+let domainsData = []; // لتخزين البيانات المسترجعة
 
 function loadDomains() {
     fetch(apiUrl)
@@ -68,43 +68,23 @@ function loadDomains() {
 
             if (data.error) {
                 console.error("❌ خطأ في جلب البيانات:", data.error.message);
-                tableBody.innerHTML = `<tr><td colspan="4">❌ خطأ: ${data.error.message}</td></tr>`; // تعديل الأعمدة لتشمل العمود الجديد
-                return;
+                return; // لا نقوم بتحديث الجدول إذا كانت هناك مشكلة في جلب البيانات
             }
-
-            tableBody.innerHTML = ""; // تفريغ الجدول قبل الإضافة
 
             const rows = data.values; // استخراج البيانات
             if (!rows || rows.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='4'>⚠️ لا توجد بيانات متاحة</td></tr>"; // تعديل الأعمدة لتشمل العمود الجديد
-                return;
+                console.log("⚠️ لا توجد بيانات متاحة");
+                return; // لا نقوم بتحديث الجدول إذا لم توجد بيانات
             }
 
-            // إنشاء رأس الجدول مع إضافة العمود الجديد
-            const tableHeader = `
-                <tr>
-                    <th>👤 صاحب النطاق</th>
-                    <th>🔗 النطاق</th>
-                    <th>🗓️ تاريخ التفعيل</th>
-                    <th>&#9203; الحالة</th> <!-- العمود الجديد -->
-                </tr>`;
-            tableBody.innerHTML = tableHeader; // إضافة رأس الجدول
+            // تخزين البيانات في المتغير domainsData
+            domainsData = rows;
 
-            // إنشاء الصفوف داخل الجدول
-            rows.forEach(row => {
-                let newRow = document.createElement("tr");
-                newRow.innerHTML = `
-                    <td>${row[0] || "—"}</td> <!-- 👤 صاحب النطاق (عمود A) -->
-                    <td>${row[1] || "—"}</td> <!-- 🔗 النطاق (عمود B) -->
-                    <td>${row[6] || "—"}</td> <!-- 🗓️ تاريخ التفعيل (عمود G) -->
-                    <td>${row[7] || "—"}</td> <!-- &#9203; الحالة (عمود H) -->
-                `;
-                tableBody.appendChild(newRow);
-            });
+            // الآن يمكنك استخدام البيانات لاحقًا كما تشاء دون الحاجة لعرضها مباشرة
+            console.log("تم تخزين البيانات:", domainsData);
         })
         .catch(error => {
             console.error("❌ حدث خطأ أثناء جلب البيانات:", error);
-            tableBody.innerHTML = `<tr><td colspan="4">❌ فشل الاتصال بـ Google Sheets</td></tr>`; // تعديل الأعمدة لتشمل العمود الجديد
         });
 }
 
