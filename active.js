@@ -54,9 +54,10 @@ window.onload = function () {
 };
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
-const sheetName = "sidox order"; // تأكد أن الاسم مطابق تمامًا
+const sheetName = "sidox order"; // تأكد من تطابق الاسم
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/'${sheetName}'!A:G?key=${apiKey}`;
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/'${sheetName}'!A4:G?key=${apiKey}`; 
+// لاحظ أن النطاق يبدأ من A4 بدلًا من A1
 
 const tableBody = document.getElementById("domains-table");
 
@@ -81,7 +82,7 @@ function loadDomains() {
             }
 
             // إنشاء الصفوف داخل الجدول
-            rows.forEach((row, index) => {
+            rows.forEach(row => {
                 let newRow = document.createElement("tr");
                 newRow.innerHTML = `
                     <td>${row[0] || "—"}</td> <!-- 👤 صاحب النطاق (عمود A) -->
@@ -96,6 +97,3 @@ function loadDomains() {
             tableBody.innerHTML = `<tr><td colspan="3">❌ فشل الاتصال بـ Google Sheets</td></tr>`;
         });
 }
-
-// تحميل البيانات عند فتح الصفحة
-window.onload = loadDomains;
