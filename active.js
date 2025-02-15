@@ -56,8 +56,7 @@ window.onload = function () {
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "sidox order"; // تأكد من تطابق الاسم
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/'${sheetName}'!A4:G?key=${apiKey}`; 
-// لاحظ أن النطاق يبدأ من A4 بدلًا من A1
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A4:H?key=${apiKey}`; // تعديل الرابط ليشمل العمود H
 
 const tableBody = document.getElementById("domains-table");
 
@@ -69,7 +68,7 @@ function loadDomains() {
 
             if (data.error) {
                 console.error("❌ خطأ في جلب البيانات:", data.error.message);
-                tableBody.innerHTML = `<tr><td colspan="3">❌ خطأ: ${data.error.message}</td></tr>`;
+                tableBody.innerHTML = `<tr><td colspan="4">❌ خطأ: ${data.error.message}</td></tr>`; // تعديل الأعمدة لتشمل العمود الجديد
                 return;
             }
 
@@ -77,9 +76,19 @@ function loadDomains() {
 
             const rows = data.values; // استخراج البيانات
             if (!rows || rows.length === 0) {
-                tableBody.innerHTML = "<tr><td colspan='3'>⚠️ لا توجد بيانات متاحة</td></tr>";
+                tableBody.innerHTML = "<tr><td colspan='4'>⚠️ لا توجد بيانات متاحة</td></tr>"; // تعديل الأعمدة لتشمل العمود الجديد
                 return;
             }
+
+            // إنشاء رأس الجدول مع إضافة العمود الجديد
+            const tableHeader = `
+                <tr>
+                    <th>👤 صاحب النطاق</th>
+                    <th>🔗 النطاق</th>
+                    <th>🗓️ تاريخ التفعيل</th>
+                    <th>&#9203; الحالة</th> <!-- العمود الجديد -->
+                </tr>`;
+            tableBody.innerHTML = tableHeader; // إضافة رأس الجدول
 
             // إنشاء الصفوف داخل الجدول
             rows.forEach(row => {
@@ -88,14 +97,16 @@ function loadDomains() {
                     <td>${row[0] || "—"}</td> <!-- 👤 صاحب النطاق (عمود A) -->
                     <td>${row[1] || "—"}</td> <!-- 🔗 النطاق (عمود B) -->
                     <td>${row[6] || "—"}</td> <!-- 🗓️ تاريخ التفعيل (عمود G) -->
+                    <td>${row[7] || "—"}</td> <!-- &#9203; الحالة (عمود H) -->
                 `;
                 tableBody.appendChild(newRow);
             });
         })
         .catch(error => {
             console.error("❌ حدث خطأ أثناء جلب البيانات:", error);
-            tableBody.innerHTML = `<tr><td colspan="3">❌ فشل الاتصال بـ Google Sheets</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="4">❌ فشل الاتصال بـ Google Sheets</td></tr>`; // تعديل الأعمدة لتشمل العمود الجديد
         });
 }
+
 // تحميل البيانات عند فتح الصفحة
 window.onload = loadDomains;
