@@ -97,3 +97,5 @@ function loadDomains() {
             tableBody.innerHTML = `<tr><td colspan="3">❌ فشل الاتصال بـ Google Sheets</td></tr>`;
         });
 }
+// تحميل البيانات عند فتح الصفحة
+window.onload = loadDomains;
