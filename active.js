@@ -56,7 +56,7 @@ window.onload = function () {
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
 const sheetName = "sidox order"; // تأكد من تطابق الاسم
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A7:H?key=${apiKey}`;
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A4:H?key=${apiKey}`;
 
 let domainsData = []; // لتخزين البيانات المسترجعة
 
