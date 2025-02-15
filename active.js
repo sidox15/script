@@ -54,16 +54,16 @@ window.onload = function () {
 };
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
+const sheetName = "sidox order";
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const metaDataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?key=${apiKey}`;
+const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A:G?key=${apiKey}`;
 
-fetch(metaDataUrl)
-  .then(response => response.json())
-  .then(data => {
-    console.log("📝 أسماء الأوراق المتاحة:");
-    data.sheets.forEach(sheet => console.log(sheet.properties.title));
-  })
-  .catch(error => console.error("❌ خطأ في جلب البيانات:", error));
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        console.log("📄 البيانات المسترجعة:", data);
+    })
+    .catch(error => console.error("❌ خطأ أثناء جلب البيانات:", error));
 
 
 function loadDomains() {
