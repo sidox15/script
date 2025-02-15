@@ -54,9 +54,17 @@ window.onload = function () {
 };
 
 const spreadsheetId = "1BdF0r81cYrgSjmPeWPoktTEp3PAhxqTO3Nth1JFx21w";
-const sheetName = "script-youcan";
 const apiKey = "AIzaSyALBpkoZjzB0LUnd3KfJ4PpEKvL4TdnV8M";
-const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A:G?key=${apiKey}`;
+const metaDataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?key=${apiKey}`;
+
+fetch(metaDataUrl)
+  .then(response => response.json())
+  .then(data => {
+    console.log("📝 أسماء الأوراق المتاحة:");
+    data.sheets.forEach(sheet => console.log(sheet.properties.title));
+  })
+  .catch(error => console.error("❌ خطأ في جلب البيانات:", error));
+
 
 function loadDomains() {
     console.log("بدء تحميل البيانات من Google Sheets...");  // رسالة تصحيح
