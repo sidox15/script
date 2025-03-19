@@ -1,1 +1,0 @@
-var elementsToHide=document.getElementsByClassName("cart-button"),currentPage=window.location.pathname;if(("/checkout/information"===currentPage||"/checkout/shipping"===currentPage||"/checkout/payment"===currentPage)&&elementsToHide.length>0)for(var i=0;i<elementsToHide.length;i++)elementsToHide[i].style.display="none";
