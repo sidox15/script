@@ -1,1 +1,0 @@
-for(var targetElements=document.getElementsByClassName("product-thumbnail"),i=0;i<targetElements.length;i++){var e=targetElements[i],t=document.createElement("div");t.className="cart-button";var a=document.createElement("a");a.textContent="شراء الآن  ",t.appendChild(a),e.appendChild(t)}
